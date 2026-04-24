@@ -1,65 +1,128 @@
-import Image from "next/image";
+"use client";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setPosition({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="relative bg-black text-white min-h-screen px-6 py-16 font-mono overflow-hidden">
+
+      {/* 🌌 Dynamic Background */}
+      <div
+        className="pointer-events-none fixed inset-0 z-0"
+        style={{
+          background: `radial-gradient(
+            600px at ${position.x}px ${position.y}px,
+            rgba(59, 180, 85, 0.25),
+          
+            transparent 90%
+          )`
+        }}
+      />
+
+      <div className="relative z-10">
+
+        {/* HERO */}
+        <section className="max-w-5xl mx-auto">
+          <p className="text-gray-500 text-sm tracking-wider">
+            [ SYSTEM INITIALIZED ]
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+
+          <h1 className="text-5xl md:text-6xl font-bold mt-4 leading-tight transition duration-300 hover:text-purple-400">
+            Building <span className="text-purple-400">intelligent systems</span>
+            <br /> for real-world uncertainty.
+          </h1>
+
+          <p className="mt-6 text-gray-400 max-w-2xl">
+            I am Shivam — focused on AI/ML systems and market prediction models.
+            Currently engineering a trading intelligence system for Indian markets.
+          </p>
+        </section>
+
+        {/* CORE FOCUS */}
+        <section className="mt-24 max-w-5xl mx-auto">
+          <h2 className="text-xl text-gray-500 mb-6">CORE FOCUS</h2>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              "AI System Design",
+              "Market Prediction Models",
+              "Data-driven Decision Systems",
+            ].map((item) => (
+              <div
+                key={item}
+                className="border border-gray-800 p-5 rounded-xl 
+                hover:border-green-400 hover:shadow-[0_0_20px_rgba(34,197,94,0.3)] 
+                transition duration-300"
+              >
+                {item}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* PROJECT */}
+        <section className="mt-24 max-w-5xl mx-auto">
+          <h2 className="text-xl text-gray-500 mb-6">ACTIVE PROJECT</h2>
+
+<div
+  className="border border-gray-800 p-6 rounded-xl 
+  transform transition duration-300 ease-out
+  hover:-translate-y-2 hover:scale-[1.02]
+  hover:border-green-300 
+  hover:shadow-[0_20px_40px_rgba(34,197,94,0.25)]"
+>
+  <h3 className="text-2xl font-semibold hover:text-green-400 transition">
+    AI Trading System
+  </h3>
+
+  <p className="mt-4 text-gray-400">
+    Developing a system that interprets market structure, identifies patterns,
+    and produces high-confidence predictions using technical indicators
+    and probabilistic reasoning.
+  </p>
+
+  <p className="mt-4 text-gray-300 text-sm">
+    Focus: Indian Industrial Market • Accuracy-Oriented Design
+  </p>
+</div>
+        </section>
+
+        {/* SKILLS */}
+        <section className="mt-24 max-w-5xl mx-auto">
+          <h2 className="text-xl text-gray-500 mb-6">STACK</h2>
+
+          <div className="flex flex-wrap gap-3">
+            {["C", "Python", "Machine Learning", "Data Analysis", "Git"].map((s) => (
+              <span
+                key={s}
+                className="border border-gray-700 px-3 py-1 text-sm rounded-md 
+                hover:border-green-400 hover:text-green-400 transition"
+              >
+                {s}
+              </span>
+            ))}
+          </div>
+        </section>
+
+        {/* CONTACT */}
+        <section className="mt-24 max-w-5xl mx-auto">
+          <h2 className="text-xl text-gray-500 mb-4">CONTACT</h2>
+
+          <p className="text-gray-400 hover:text-green-400 transition">
+            shivamsaini14102006@email.com
+          </p>
+        </section>
+
+      </div>
+    </main>
   );
 }
